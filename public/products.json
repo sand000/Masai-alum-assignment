@@ -1,0 +1,63 @@
+[
+    {
+      "id": 1,
+      "name": "Wireless Mouse",
+      "price": 499,
+      "category": "Electronics"
+    },
+    {
+      "id": 2,
+      "name": "Bluetooth Headphones",
+      "price": 1299,
+      "category": "Electronics"
+    },
+    {
+      "id": 3,
+      "name": "Office Chair",
+      "price": 2999,
+      "category": "Furniture"
+    },
+    {
+      "id": 4,
+      "name": "Running Shoes",
+      "price": 1999,
+      "category": "Footwear"
+    },
+    {
+      "id": 5,
+      "name": "Water Bottle",
+      "price": 299,
+      "category": "Home"
+    },
+    {
+      "id": 6,
+      "name": "Backpack",
+      "price": 999,
+      "category": "Accessories"
+    },
+    {
+      "id": 7,
+      "name": "Smartwatch",
+      "price": 2499,
+      "category": "Electronics"
+    },
+    {
+      "id": 8,
+      "name": "Desk Lamp",
+      "price": 699,
+      "category": "Home"
+    },
+    {
+      "id": 9,
+      "name": "Notebook",
+      "price": 99,
+      "category": "Stationery"
+    },
+    {
+      "id": 10,
+      "name": "Pen Set",
+      "price": 149,
+      "category": "Stationery"
+    }
+  ]
+  
