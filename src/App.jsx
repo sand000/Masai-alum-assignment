@@ -7,6 +7,7 @@ function App() {
   const [filterData, setFilteredData] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [fav, setFav] = useState(0);
+  const [sortBy, setSortBy] = useState("asc");
 
   const productsData = async () => {
     const products = await fetch("../../products.json");
@@ -15,16 +16,22 @@ function App() {
     setFilteredData(res);
   };
 
+  let updatedFavCount = () => {
+    let favs = JSON.parse(localStorage.getItem("productFavs")) || [];
+    setFav(favs.length);
+  };
+  
   useEffect(() => {
     productsData();
-    let favs = JSON.parse(localStorage.getItem("productFavs"));
-    setFav(favs.length);
-  }, [fav]);
+    updatedFavCount();
+  }, []);
 
-  const handleSearch = (e) => {
+  const handleSearchText = (e) => {
     let value = e.target.value;
     setSearchText(value);
-    if (value.trim() === "") {
+  };
+  const handleSearch = () => {
+    if (searchText.trim() === "") {
       setFilteredData(productsList);
     } else {
       let filteredData = productsList.filter((item) =>
@@ -34,6 +41,27 @@ function App() {
     }
   };
 
+  const handleSortBy = (e) => {
+    console.log(e.target.value);
+
+    setSortBy(e.target.value);
+    let sorted;
+    if (sortBy === "asc") {
+      sorted = filterData.sort((a, b) => b.price - a.price);
+    } else {
+      sorted = filterData.sort((a, b) => a.price - b.price);
+    }
+    setFilteredData(sorted);
+  };
+
+  const handleSearchClick = () => {
+    handleSearch();
+  };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSearch();
+    }
+  };
   return (
     <div
       style={{
@@ -58,17 +86,39 @@ function App() {
         </button>
       </div>
 
-      <div>
+      <div
+        style={{
+          display: "flex",
+          width: "80%",
+          justifyContent: "space-between",
+          alignSelf: "center",
+        }}
+      >
         <input
+          style={{ width: "50%" }}
           value={searchText}
           type="text"
           placeholder="search by product name"
-          onChange={(e) => handleSearch(e)}
+          onChange={handleSearchText}
+          onKeyDown={handleKeyDown}
         ></input>
         {"      "}
-        <button>Search</button>
+        <button onClick={handleSearchClick}>Search</button>
+
+        {/* sort by asc desc */}
+        <div>
+          <label>Sort By Price</label>
+          <select
+            style={{ width: "100%" }}
+            value={sortBy}
+            onChange={handleSortBy}
+          >
+            <option value={"asc"}>Ascending </option>
+            <option value={"desc"}>Descending</option>
+          </select>
+        </div>
       </div>
-      <ProductCard data={filterData} />
+      <ProductCard data={filterData} onFavChange={updatedFavCount} />
     </div>
   );
 }
