@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
-function ProductCard({ data }) {
+function ProductCard({ data, onFavChange }) {
   const [favIds, setFavIds] = useState([]);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ function ProductCard({ data }) {
     } catch (error) {
       console.error("Failed to parse favs:", error);
       localStorage.removeItem("productFavs");
-      setFavIds([]); 
+      setFavIds([]);
     }
   }, []);
 
@@ -26,6 +26,7 @@ function ProductCard({ data }) {
       setFavIds(updatedFavs);
       localStorage.setItem("productFavs", JSON.stringify(updatedFavs));
     }
+    onFavChange();
   };
 
   return (
@@ -62,4 +63,4 @@ function ProductCard({ data }) {
   );
 }
 
-export default ProductCard;
+export default React.memo(ProductCard);
