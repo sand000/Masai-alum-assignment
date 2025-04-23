@@ -20,7 +20,7 @@ function App() {
     let favs = JSON.parse(localStorage.getItem("productFavs")) || [];
     setFav(favs.length);
   };
-  
+
   useEffect(() => {
     productsData();
     updatedFavCount();
